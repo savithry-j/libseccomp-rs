@@ -737,6 +737,16 @@ impl ScmpFilterContext {
     ///
     /// If this function is called with an invalid filter or  writing to the file fails,
     /// an error will be returned.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use libseccomp::*;
+    /// # use std::io::{stdout, Error};
+    /// let ctx = ScmpFilterContext::new_filter(ScmpAction::Allow)?;
+    /// assert!(ctx.export_pfc(&mut stdout()).is_ok());
+    /// # Ok::<(), Box<dyn std::error::Error>>(())
+    /// ```
     pub fn export_pfc<T: AsRawFd>(&self, fd: &mut T) -> Result<()> {
         cvt(unsafe { seccomp_export_pfc(self.ctx.as_ptr(), fd.as_raw_fd()) })
     }
@@ -752,6 +762,16 @@ impl ScmpFilterContext {
     ///
     /// If this function is called with an invalid filter or  writing to the file fails,
     /// an error will be returned.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use libseccomp::*;
+    /// # use std::io::{stdout, Error};
+    /// let ctx = ScmpFilterContext::new_filter(ScmpAction::Allow)?;
+    /// assert!(ctx.export_bpf(&mut stdout()).is_ok());
+    /// # Ok::<(), Box<dyn std::error::Error>>(())
+    /// ```
     pub fn export_bpf<T: AsRawFd>(&self, fd: &mut T) -> Result<()> {
         cvt(unsafe { seccomp_export_bpf(self.ctx.as_ptr(), fd.as_raw_fd()) })
     }
